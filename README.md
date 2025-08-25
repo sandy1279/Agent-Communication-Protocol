@@ -1,43 +1,62 @@
-# Agent-Communication-Protocol
-an implementation of ACP given by IBM using its sdk 
 
-# ACP Agents with CrewAI + TinyLlama
 
-This project demonstrates how to build autonomous agents using [ACP](https://github.com/agenta-ai/acp), 
-[CrewAI](https://github.com/joaomdmoura/crewai), 
-and the TinyLlama 1.1B Chat model running locally via [Ollama](https://ollama.ai).  
+ACP-based Multi-Agent Orchestration 🚀
 
-The system is split into three components:
-1. **ACP Client** – Handles the connection to ACP servers and orchestrates workflows between agents.
-2. **Research Drafter Agent (ACP Server)** – Generates initial research summaries.
-3. **Research Verifier Agent (ACP Server)** – Fact-checks and enhances summaries using web search tools.
+This repository demonstrates how to use Agent Communication Protocol (ACP) for reliable, scalable, and structured multi-agent communication.
 
----
-
-## 📂 Project Structure
-
-.
-├── acp_client.py # ACP client (workflow orchestration + connection)
-├── AgentServer1.py # ACP server: drafts research summaries
-├── AgentServer2.py # ACP server: fact-checks & enhances summaries
-└── README.md
+Unlike Agent-to-Agent (A2A) messaging—where agents directly call each other (leading to tight coupling, brittle flows, and poor scalability)—ACP introduces a client–server communication layer that ensures loose coupling and robust orchestration.
 
 
 ---
 
-## ⚙️ Requirements
+🔧 How It Works
 
-- Python 3.10+
-- [Ollama](https://ollama.ai) installed and running
-- Models pulled locally:
+ACP Client → Orchestrates workflows, maintains context, and communicates requests/responses.
 
-Install dependencies:
+ACP Server (Agents) → Implements agent logic and exposes tools in a structured way.
 
-pip install acp-sdk crewai smolagents duckduckgo-search
-🚀 Usage
-1. Start the ACP Servers (Agents)
-Run the research Agent file:
+Protocol Layer → Provides standardized message passing, session handling, and orchestration.
 
-Run the research verifier:
 
-Both agents will run as independent ACP servers (listening on different ports, e.g., 8000 and 8001).
+This separation of concerns ensures decoupled agents, easier debugging, and reliable workflows.
+
+
+---
+
+🚀 Getting Started
+
+1. Start the Agent Servers
+
+python AgentServer1.py
+python AgentServer2.py
+
+2. Run the Orchestrator (ACP Client)
+
+python Orchestrator.py
+
+
+---
+
+🔍 Why ACP over A2A?
+
+Feature	A2A (Agent-to-Agent)	ACP (Agent Communication Protocol)
+
+Coupling	High (agents depend directly)	Low (decoupled via client/server)
+Scalability	Limited	High – agents can be added/removed independently
+Context Handling	Manual, error-prone	Built-in session + context handling
+Debugging	Hard (messages scattered)	Centralized orchestration in ACP client
+Reliability	Lower (fragile links)	Higher (structured protocol + fallbacks)
+
+
+
+---
+
+✅ Benefits
+
+Loose coupling → Agents evolve independently
+
+Structured orchestration → Centralized client manages flows
+
+Session management → Context-aware workflows
+
+Scalable design → Plug-and-play agents
